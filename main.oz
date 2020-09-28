@@ -165,7 +165,7 @@ define
         {Addup {Taylor X} 0. N}
         end
     end
-    % {System.showInfo {Sine 0.523598775598298873 1000}}
+    {System.showInfo {Sine 0.523598775598298873 1000}}
 
 
     % Question 3.2
@@ -182,7 +182,7 @@ define
         {Addup S 0.}
         end
     end
-    % {System.showInfo {Approximate {Taylor 0.52} 0.000001}}
+    {System.showInfo {Approximate {Taylor 0.52} 0.000001}}
 
     % Question 4
 
@@ -214,7 +214,5 @@ define
         {Check M 1}
         end
     end
-
-    M = [[1 2] [1 1]]
-    {System.print {IsDiagonal M}}
+    {System.print {IsDiagonal [[1 0 0] [0 1 0] [0 0 3]]}}
 end
