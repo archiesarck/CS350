@@ -33,14 +33,31 @@ uniq xs = uniq' xs []
 
 -- Question 3
 
+-- Normal implementation =============================================================================================================================
+
 -- neighbors :: (Ord a1, Ord a2, Num a1, Num a2) => a1 -> a2 -> [(a1, a2)]
-neighbors i j = quickSort $ remove [(i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), (i, j+1), (i+1, j-1), (i+1, j), (i+1, j+1)] []
-    where
-        remove [] ys = ys
-        remove (x:xs) ys =
-            if ((fst x)<0 || (fst x)>9) then remove xs ys
-            else if ((snd x)<0 || (snd x)>9) then remove xs ys
-            else remove xs (ys++[x])
+-- neighbors i j = quickSort $ remove [(i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), (i, j+1), (i+1, j-1), (i+1, j), (i+1, j+1)] []
+--     where
+--         remove [] ys = ys
+--         remove (x:xs) ys =
+--             if ((fst x)<0 || (fst x)>9) then remove xs ys
+--             else if ((snd x)<0 || (snd x)>9) then remove xs ys
+--             else remove xs (ys++[x])
+
+-- ====================================================================================================================================================
+
+-- Using higher order functions, I have used compose_multiple from Q5 here ============================================================================
+
+remove xs = remove' xs [] where
+    remove' [] ys = ys
+    remove' (x:xs) ys =
+        if ((fst x)<0 || (fst x)>9) then remove' xs ys
+        else if ((snd x)<0 || (snd x)>9) then remove' xs ys
+        else remove' xs (ys++[x])
+
+neighbors i j = compose_multiple [quickSort, remove] [(i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), (i, j+1), (i+1, j-1), (i+1, j), (i+1, j+1)]
+
+-- ====================================================================================================================================================
 
 
 -- Question 4
@@ -58,7 +75,7 @@ compose_multiple (f:fs) val = compose_multiple (init $ f:fs) $ (last $ f:fs) val
 
 -- Question 6
 
-data BinaryTree a = Node a (BinaryTree a) (BinaryTree a) | Nil deriving Show
+data BinaryTree a = Node a (BinaryTree a) (BinaryTree a) | Nil
 
 -- maptree :: (a->b) -> BinaryTree a -> BinaryTree b
 maptree fn Nil = Nil
