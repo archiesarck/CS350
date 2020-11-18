@@ -38,8 +38,8 @@ neighbors i j = quickSort $ remove [(i-1, j-1), (i-1, j), (i-1, j+1), (i, j-1), 
     where
         remove [] ys = ys
         remove (x:xs) ys =
-            if ((fst x)<0 || (fst x)>8) then remove xs ys
-            else if ((snd x)<0 || (snd x)>8) then remove xs ys
+            if ((fst x)<0 || (fst x)>9) then remove xs ys
+            else if ((snd x)<0 || (snd x)>9) then remove xs ys
             else remove xs (ys++[x])
 
 
