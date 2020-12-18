@@ -1,0 +1,19 @@
+1.  * Stack Top = local F ..... end.
+    * Pop, add F as <f> (lets say) to SAS and then push inner statement on Stack.
+    * Top is of form s1|s2, so pop from Stack and push s2, push s1.
+    * s1: Pop. No free variables, hence bind <f> to proc closure
+        {<f>, (proc ..... end, <>)}
+    * s2: Pop. local ... end
+    * Add X to SAS as <x> (lets say), push X = {F 3} to Stack.
+    * Bind X to {F 3}, but evaluate {F 3} first.
+        * Push closure for F to stack, with environment: {<N>, 3}
+        * Function body gets pushed on Stack
+        * if e1 then s1 else s2: e1 is false, push s2 on stack
+        * again
+    * finally code terminates
+
+
+2a. No, it is not declaratively concurrent.
+2b. Gen generate infinite list if 1.
+    Double doubles the list elements.
+    thread Xs = {Gen} end--------this line violates the termination condition, hence the program will never terminate.
